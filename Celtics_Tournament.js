@@ -2,20 +2,32 @@
 
 class Player{
     constructor(name, overall){
-        this._name = name;
-        this._overall = overall;
-        Object.freeze(this);
-    };
+        this.name = name;
+        this.overall = overall;
 
-    get name_of_player() {
-        return this._name
-    };
+        let over_private = overall;
+        Object.defineProperty(this, 'name', {
+            enumerable: true,
+            get: function(){
+                return name;
+            },
+            configurable: false
+        });
 
-    get over_of_player() { 
-        return this._overall
+        Object.defineProperty(this, 'overall', {
+            enumerable: true,
+            set: function(over){
+                if (typeof over  !== 'number'){
+                    throw new TypeError('Type error')
+                }
+
+                over_private = over;
+            }
+        });
+
+
     };
 };
-
 
 function Battle_of_Player(Player1_name = String, Player1_over = Number, 
     Player2_name = String, Player2_over = Number){
@@ -48,7 +60,6 @@ function Battle_of_Player(Player1_name = String, Player1_over = Number,
         }
 
         else{
-            console.log('else')
             if(Better_over < 0){return `${Player2_name} won`;}
             else{return `${Player1_name} won`};
         };
@@ -75,6 +86,6 @@ const Luke_Kornet = new Player ('Luke_Kornet', 70);
 const JD_Davison  = new Player ('JD_Davison', 69);
 
 
-console.log(Battle_of_Player(JaylenB.name_of_player, JaylenB.over_of_player, 
-    JaysonT.name_of_player, JaysonT.over_of_player));
-
+console.log(Battle_of_Player(Jaylen_Brown.name, Jaylen_Brown.over_of_player, 
+    Jayson_Tatum.name, Jayson_Tatum.over_of_player));
+    
