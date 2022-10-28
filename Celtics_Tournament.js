@@ -1,5 +1,3 @@
-
-
 class Player{
     constructor(name, overall){
         this.name = name;
@@ -20,26 +18,34 @@ class Player{
                 if (typeof over  !== 'number'){
                     throw new TypeError('Type error')
                 }
-
                 over_private = over;
-            }
-        });
-
+            },
+            get: function(){
+                return overall;
+            },
+        
+        });    
 
     };
 };
 
-function Battle_of_Player(Player1_name = String, Player1_over = Number, 
-    Player2_name = String, Player2_over = Number){
+function Battle_of_Player(Player1_name , Player1_over, Player2_name , Player2_over ){
+        
+        if (typeof Player1_name !== 'string' || typeof Player2_name !== 'string' ){
+            throw("Player's name has to be a string")
+        }
+        else if (typeof Player1_over !== 'number' || typeof Player2_over !== 'number' ){
+            throw("Player's overall has to be a Number")
+        }
 
-        let Rand_num = Math.floor((Math.random() * 100)+1);
+        let Rand_num_1 = Math.floor((Math.random() * 100)+1);
+        let Rand_num_2 = Math.floor((Math.random() * 100)+1);
         let Rand_num_10 = Math.floor((Math.random() * 9)+1);
 
         let Better_over = Player1_over - Player2_over;
 
-        let Lucky_factor_p1 = (Player1_over %  Rand_num);
-        let Lucky_factor_p2 = (Player2_over % Rand_num);
-
+        let Lucky_factor_p1 = Player1_over % Rand_num_1;
+        let Lucky_factor_p2 = Player2_over % Rand_num_2;
 
         if ((Player1_over - Player2_over) < 15){
             if (Lucky_factor_p1 % Rand_num_10 == 0 && Lucky_factor_p2 % Rand_num_10 == 0){
@@ -85,7 +91,5 @@ const Mfiondu_Kabengele = new Player ('Mfiondu_Kabengele', 70);
 const Luke_Kornet = new Player ('Luke_Kornet', 70);
 const JD_Davison  = new Player ('JD_Davison', 69);
 
-
-console.log(Battle_of_Player(Jaylen_Brown.name, Jaylen_Brown.over_of_player, 
-    Jayson_Tatum.name, Jayson_Tatum.over_of_player));
+console.log(Battle_of_Player(Jaylen_Brown.name, Jaylen_Brown.overall, Jayson_Tatum.name, Jayson_Tatum.overall));
     
